@@ -1,30 +1,38 @@
-require("dotenv").config();
-const apiKey = process.env.API_KEY;
+const apiKey = '' // 後で消すこと
+
+
 
 const doc = document;
-const weatherForm = doc.getElementById("weatherForm");
-const weatherResult = doc.getElementById("weatherResult");
-
-doc.addEventListener("submit", function (event) {
-    event.preventDefault;
-    const latitude = weatherForm.getElementById("latitude");
-    const longitude = weatherForm.getElementById("longitude");
-    const url =
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&lang=ja&appid=${apiKey}`;
+doc.getElementById('weatherForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+  
+    const latitude = doc.getElementById('latitude').value;
+    const longitude = doc.getElementById('longitude').value;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&lang=ja&appid=${apiKey}`;
 
     fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-            const temperature = data.main.temp;
-            const weatherDescription = data.weather[0].description;
-            document.getElementById("weatherResult").innerHTML = `
-            <p>気温: ${temperature} °C</p>
-            <p>天気: ${weatherDescription}</p>
-        `;
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('ネットワークエラー');
+            }
+            return response.json();
         })
-        .catch((error) => {
-            document.getElementById("weatherResult").innerHTML =
-                `<p>天気情報の取得に失敗しました。</p>`;
-            console.error("Error:", error);
+        .then(data => {
+            const temperature = data.main.temp;
+            const description = data.weather[0].description;
+    
+            const tempElement = document.createElement('p');
+            tempElement.textContent = `温度: ${temperature}°C`;
+    
+            const descElement = document.createElement('p');
+            descElement.textContent = `天気: ${description}`;
+    
+            const weatherResult = document.getElementById('weatherResult');
+            weatherResult.appendChild(tempElement);
+            weatherResult.appendChild(descElement);
+        })
+        .catch(error => {
+            document.getElementById('weatherResult').innerHTML = 
+                `<p>エラー${error.message}</p>`;
         });
-});
+  });
