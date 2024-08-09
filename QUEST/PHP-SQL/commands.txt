@@ -1,0 +1,10 @@
+# コンテナIDを調べる
+docker ps
+
+
+# SQL関連 ---------------------------------------------------------------------------------------------------
+# MySqlに接続(ルートユーザー)
+docker-compose exec db mysql -u root -p
+
+# MySqlに接続(ユーザー)
+docker-compose exec db mysql -u ユーザー名 -p

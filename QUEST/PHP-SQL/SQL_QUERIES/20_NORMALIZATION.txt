@@ -1,0 +1,60 @@
+ユーザー
+・ユーザーID
+・名前
+・登録情報（メールアドレス、住所など）
+
+商品
+・商品ID
+・商品名
+・カテゴリー
+・値段
+
+注文
+・注文ID
+・ユーザーID
+・注文日
+・注文商品ID
+・注文商品価格
+・注文商品数量
+
+[users]
+user_id
+user_name
+user_email
+
+[items]
+item_id
+category_id
+item_name
+item_price
+
+[categories]
+category_id
+category_name
+
+[orders]
+order_id
+user_id
+order_date
+order_price
+order_quantity
+
+
+4. ボイスコッド正規形
+[患者]
+患者ID プライマリ
+患者名
+
+[診療科テーブル]
+診療科ID プライマリ
+診療科名
+
+[医師テーブル]
+医師ID プライマリ
+医師名
+診療科ID 外部
+
+[受診テーブル]
+患者ID プライマリ
+診療科ID プライマリ
+医師ID

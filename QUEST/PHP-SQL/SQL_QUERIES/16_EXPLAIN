@@ -1,0 +1,5 @@
+-- 2.実行計画
+EXPLAIN SELECT * FROM salaries WHERE salary = 70575;
+
+-- 3. 実行時間
+EXPLAIN ANALYZE SELECT * FROM salaries WHERE salary = 70575;
